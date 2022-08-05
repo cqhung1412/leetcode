@@ -10,14 +10,18 @@ function isPalindromeP1(x) {
 function isPalindromeP2(x) {
   if (x < 0 || (x < 100 && x >= 10 && x % 11 !== 0)) return false;
   if (x >= 0 && x < 10) return true;
-  const str = x.toString();
-  const len = str.length;
-  const firstHalf = str.slice(0, len / 2);
-  const secondHalf = str.slice(0, -(len % 2) - 1);
-  const reverseSecondHalf = secondHalf.length == 1 ? secondHalf : secondHalf.split("").reverse().join("");
-  console.log(firstHalf, reverseSecondHalf)
-  if (firstHalf == reverseSecondHalf) return true;
-  return false;
+
+  let reversed = 0;
+  let remainder = x;
+  let original = x;
+
+  while (x !== 0) {
+    remainder = x % 10;
+    reversed = reversed * 10 + remainder;
+    x = Math.floor(x / 10);
+  }
+
+  return reversed === original;
 }
 
 [121, -121, 10, 100, 11].forEach((num) => {
